@@ -41,4 +41,26 @@ public class AcaoController {
 		this.result.use(Results.json()).from(acoes).serialize();
 	}
 	
+	@Get("/json/melhoresAcoes")
+	public void listarMelhoresAcoes() {
+		List<Acao> acoes = 
+				this.entityManager
+				.createQuery("select a from Acao a order by a.valor desc", Acao.class)
+				.setMaxResults(5)
+				.getResultList();
+		
+		this.result.use(Results.json()).from(acoes).serialize();
+	}
+	
+	@Get("/json/pioresAcoes")
+	public void listarPioresAcoes() {
+		List<Acao> acoes = 
+				this.entityManager
+				.createQuery("select a from Acao a order by a.valor", Acao.class)
+				.setMaxResults(5)
+				.getResultList();
+		
+		this.result.use(Results.json()).from(acoes).serialize();
+	}
+	
 }

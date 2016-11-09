@@ -8,5 +8,3 @@ insert into Acao (nomeEmpresa, valor) values ('PNEUSERVICE', 90.00);
 insert into Acao (nomeEmpresa, valor) values ('Petrobras', 50.00);
 insert into Acao (nomeEmpresa, valor) values ('CICLOPECAS', 70.00);
 insert into Acao (nomeEmpresa, valor) values ('PANIFICACAO GARCA', 80.00);
-
-

@@ -80,7 +80,7 @@ function preencherPioresEmpresas(empresas) {
 }
 function obterMelhoresEmpresas() {
 	$.ajax({			
-		url: 'http://localhost/vraptor/json/acoes',
+		url: 'http://localhost/vraptor/json/melhoresAcoes',
 		type: 'GET',
 		success: function(json) {
 			preencherMelhoresEmpresas(json.list);
@@ -89,7 +89,7 @@ function obterMelhoresEmpresas() {
 }
 function obterPioresEmpresas() {
 	$.ajax({			
-		url: 'http://localhost/vraptor/json/acoes',
+		url: 'http://localhost/vraptor/json/pioresAcoes',
 		type: 'GET',
 		success: function(json) {
 			preencherPioresEmpresas(json.list);
