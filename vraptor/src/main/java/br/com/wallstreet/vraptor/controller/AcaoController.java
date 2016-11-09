@@ -1,13 +1,18 @@
 package br.com.wallstreet.vraptor.controller;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.com.wallstreet.vraptor.entity.Acao;
@@ -15,7 +20,7 @@ import br.com.wallstreet.vraptor.entity.Acao;
 @Controller
 public class AcaoController {
 	
-	@PersistenceContext
+	@PersistenceContext(unitName="vraptor")
 	private EntityManager entityManager;
 	
 	private final Result result;
@@ -61,6 +66,24 @@ public class AcaoController {
 				.getResultList();
 		
 		this.result.use(Results.json()).from(acoes).serialize();
+	}
+	
+	@Transactional
+	@Post("/cadastro/acao")
+	public void criarAcaoManual(Acao acao) {
+		entityManager.persist(acao);
+		this.result.nothing();
+	}
+	
+	@Transactional
+	@Post("/gerar/acao")
+	public void criarAcaoAutomatico() {
+		Random random = new Random();
+		Acao acao = new Acao();
+		acao.setNomeEmpresa("Empresa " + Math.abs( random.nextInt() % 10000 ));
+		acao.setValor( BigDecimal.valueOf(random.nextDouble() * 100).setScale(2, RoundingMode.HALF_UP).doubleValue() );
+		entityManager.persist(acao);
+		this.result.nothing();
 	}
 	
 }
