@@ -16,40 +16,92 @@
 <body>
 <table id="tb-acoes">
 	<tr>
-		<th>Melhores Ações</th>
-		<th>Piores Ações</th>
+		<th colspan="2">Melhores Ações</th>
+		<th colspan="2">Piores Ações</th>
 	</tr>
 	<tr>
-		<td>A Suprema</td>
-		<td>A Suprema</td>
+		<th>Empresa</th>
+		<th>Valor</th>
+		<th>Empresa</th>
+		<th>Valor</th>
 	</tr>
 	<tr>
-		<td>GBarbosa</td>
-		<td>GBarbosa</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>Gerdau</td>
-		<td>Gerdau</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>Bompreço</td>
-		<td>Bompreço</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>Petrobrás</td>
-		<td>Petrobrás</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 </table>
-<br/><br/>
-<div id="resultjson"></div>
 <script type="text/javascript">
-$.ajax({			
-	url: 'http://localhost/vraptor/json/acoes',
-	type: 'GET',
-	success: function(json) {
-		$('#resultjson').html(JSON.stringify(json));
+function preencherMelhoresEmpresas(empresas) {
+	var table = document.getElementById('tb-acoes');
+	var tBody = table.getElementsByTagName('tbody')[0];
+	var rows = tBody.getElementsByTagName('tr');
+	for (var i=2; i < 7; ++i) {
+		var cols = rows[i].getElementsByTagName('td');
+		cols[0].innerHTML = empresas[i-2].nomeEmpresa;
+		cols[1].innerHTML = empresas[i-2].valor;
 	}
-});
+}
+
+function preencherPioresEmpresas(empresas) {
+	var table = document.getElementById('tb-acoes');
+	var tBody = table.getElementsByTagName('tbody')[0];
+	var rows = tBody.getElementsByTagName('tr');
+	for (var i=2; i < 7; ++i) {
+		var cols = rows[i].getElementsByTagName('td');
+		cols[2].innerHTML = empresas[i-2].nomeEmpresa;
+		cols[3].innerHTML = empresas[i-2].valor;
+	}
+}
+function obterMelhoresEmpresas() {
+	$.ajax({			
+		url: 'http://localhost/vraptor/json/acoes',
+		type: 'GET',
+		success: function(json) {
+			preencherMelhoresEmpresas(json.list);
+		}
+	});
+}
+function obterPioresEmpresas() {
+	$.ajax({			
+		url: 'http://localhost/vraptor/json/acoes',
+		type: 'GET',
+		success: function(json) {
+			preencherPioresEmpresas(json.list);
+		}
+	});
+}
+obterMelhoresEmpresas();
+obterPioresEmpresas();
+setInterval(function() {
+	obterMelhoresEmpresas();
+	obterPioresEmpresas();
+}, 6000);
 </script>
 </body>
 </html>
