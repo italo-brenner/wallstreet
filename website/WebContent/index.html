@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Listar Ações</title>
+<style>
+	table, th, td {
+		border: 2px solid black;
+	}
+	th, td {
+		padding: 5px;
+	}
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<table id="tb-acoes">
+	<tr>
+		<th>Melhores Ações</th>
+		<th>Piores Ações</th>
+	</tr>
+	<tr>
+		<td>A Suprema</td>
+		<td>A Suprema</td>
+	</tr>
+	<tr>
+		<td>GBarbosa</td>
+		<td>GBarbosa</td>
+	</tr>
+	<tr>
+		<td>Gerdau</td>
+		<td>Gerdau</td>
+	</tr>
+	<tr>
+		<td>Bompreço</td>
+		<td>Bompreço</td>
+	</tr>
+	<tr>
+		<td>Petrobrás</td>
+		<td>Petrobrás</td>
+	</tr>
+</table>
+<br/><br/>
+<div id="resultjson"></div>
+<script type="text/javascript">
+$.ajax({			
+	url: 'http://localhost/vraptor/json/acoes',
+	type: 'GET',
+	success: function(json) {
+		$('#resultjson').html(JSON.stringify(json));
+	}
+});
+</script>
+</body>
+</html>
