@@ -1,0 +1,10 @@
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('A Suprema', 10.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('NOVIMODAS', 100.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('GBarbosa', 20.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('Gerdau', 30.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('COSIL', 60.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('Bompreco', 40.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('PNEUSERVICE', 90.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('Petrobras', 50.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('CICLOPECAS', 70.00, CURRENT_TIMESTAMP);
+insert into Acao (nomeEmpresa, valor, dtAtualizacao) values ('PANIFICACAO GARCA', 80.00, CURRENT_TIMESTAMP);

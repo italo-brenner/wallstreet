@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Listar Ações</title>
+<style>
+table, th, td {
+	border: 2px solid black;
+}
+
+th, td {
+	padding: 5px;
+}
+fieldset {
+	display: inline;
+}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+	<div>
+		<table id="tb-acoes">
+			<tr>
+				<th colspan="2">Melhores Ações</th>
+				<th colspan="2">Piores Ações</th>
+			</tr>
+			<tr>
+				<th>Empresa</th>
+				<th>Valor</th>
+				<th>Empresa</th>
+				<th>Valor</th>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	<br/>
+	<div>
+		<form id="form-acao" method="post">
+			<fieldset>
+				<legend>Criar Empresas</legend>
+				Nome: <input name="nomeEmpresa" />
+				<br/><br/>
+				Valor: <input name="valor" />
+				<br/><br/>
+				<button type="button" id="btn-criar-acao">Criar Acao</button>
+				<button type="button" id="btn-gerar-acao">Gerar Acao</button>
+			</fieldset>
+		</form>
+	</div>
+	<script type="text/javascript">
+		$("#btn-criar-acao").click(function() {
+			$.ajax({
+				url : 'http://localhost/jaxrs/resources/json/acao/cadastro',
+				type : 'POST',
+		        dataType: 'json',
+		        data: $('#form-acao').serialize()
+			});
+		});
+		$("#btn-gerar-acao").click(function() {
+			$.ajax({
+				url : 'http://localhost/jaxrs/resources/json/acao/gerar',
+				type : 'POST'
+			});
+		});
+		function preencherMelhoresEmpresas(empresas) {
+			var table = document.getElementById('tb-acoes');
+			var tBody = table.getElementsByTagName('tbody')[0];
+			var rows = tBody.getElementsByTagName('tr');
+			for (var i = 2; i < 7; ++i) {
+				var cols = rows[i].getElementsByTagName('td');
+				cols[0].innerHTML = empresas[i - 2].nomeEmpresa;
+				cols[1].innerHTML = empresas[i - 2].valor;
+			}
+		}
+
+		function preencherPioresEmpresas(empresas) {
+			var table = document.getElementById('tb-acoes');
+			var tBody = table.getElementsByTagName('tbody')[0];
+			var rows = tBody.getElementsByTagName('tr');
+			for (var i = 2; i < 7; ++i) {
+				var cols = rows[i].getElementsByTagName('td');
+				cols[2].innerHTML = empresas[i - 2].nomeEmpresa;
+				cols[3].innerHTML = empresas[i - 2].valor;
+			}
+		}
+		function obterMelhoresEmpresas() {
+			$.ajax({
+				url : 'http://localhost/jaxrs/resources/json/acao/melhoresAcoes',
+				type : 'GET',
+			    ifModified: true,
+			    cache: false,
+				success : function(json, textStatus) {
+					if (textStatus === 'success') {
+						preencherMelhoresEmpresas(json);
+					}
+				},
+				error : function() {
+				}
+			});
+		}
+		function obterPioresEmpresas() {
+			$.ajax({
+				url : 'http://localhost/jaxrs/resources/json/acao/pioresAcoes',
+				type : 'GET',
+			    ifModified: true,
+			    cache: false,
+				success : function(json, textStatus) {
+					if (textStatus === 'success') {
+						preencherPioresEmpresas(json);
+					}
+				},
+				error : function() {
+				}
+			});
+		}
+		obterMelhoresEmpresas();
+		obterPioresEmpresas();
+		setInterval(function() {
+			obterMelhoresEmpresas();
+			obterPioresEmpresas();
+		}, 6000);
+	</script>
+</body>
+</html>

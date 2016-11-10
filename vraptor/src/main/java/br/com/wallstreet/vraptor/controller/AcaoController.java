@@ -7,7 +7,6 @@ import java.util.Random;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import br.com.caelum.vraptor.Controller;
@@ -20,20 +19,20 @@ import br.com.wallstreet.vraptor.entity.Acao;
 @Controller
 public class AcaoController {
 	
-	@PersistenceContext(unitName="vraptor")
 	private EntityManager entityManager;
-	
 	private final Result result;
 	
 	/**
 	 * @deprecated
 	 */
 	public AcaoController() {
-		this(null);
+		this(null, null);
 	}
 	
 	@Inject
-	public AcaoController(Result result) {
+	public AcaoController(EntityManager entityManager,
+			              Result result) {
+		this.entityManager = entityManager;
 		this.result = result;
 	}
 	
